@@ -2,10 +2,51 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
-    <script src="./index.js"></script>
+    <title>Simulador Prestamos</title>
+    <script defer src="./index.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
-<body>
-    
+<body>    
+    <form class="formulario">
+        <h1>Calcular el costo de tu préstamo</h1>
+        <p>Con esta herramienta podrás simular financiamientos, para obtener cuánto terminarías pagando por un crédito, así como una tabla de amortización para tu referencia.</p>
+        <p> Pasos a seguir para realizar el cálculo:</p>        
+        <p>Captura la fecha en que esperas recibir tu crédito y el monto que vas a solicitar.</p>
+        <p>Selecciona la forma en que vas a realizar tus pagos y el plazo total del crédito.</p>
+        <p>Ingresa la tasa de intereses del préstamo.</p>        
+        <div class="inputs">
+        <label for="fecha">Fecha de recepción del crédito:</label>
+        <input type="date" id="fecha" name="fecha"><br>
+        <label for="moneda">Moneda:</label>
+        <select name="moneda" id="moneda" onchange="cambiarMoneda()">
+        <option value="usd">PESOS</option>
+        <option value="eur">USD</option>        
+        </select>
+        <label for="monto">Monto del crédito ($):</label>
+        <input type="number" id="monto" name="monto"><br>
+        <label for="plazo">Plazo del crédito:</label>
+        <select id="plazo" name="plazo">
+        <option value="1">1 año</option>
+        <option value="2">2 años</option>
+        <option value="3">3 años</option>
+        <option value="4">4 años</option>
+        <option value="5">5 años</option>
+        </select><br>
+        <label for="cuotas">Frecuencia de pagos:</label>
+        <select id="cuotas" name="cuotas">
+        <option value="mensual">Mensual</option>
+        <option value="bimestral">Bimestral</option>
+        <option value="semestral">Semestral</option>
+        </select><br>
+        <label for="interes">Tasa de interés (%):</label>
+        <input type="number" id="interes" name="interes"><br>
+        <label for="total">Total a pagar:</label>
+        <input type="text" id="total" name="total" readonly><br>        
+        <button type="button" id="calcular">Calcular</button>
+        <button type="reset" id="borrar">Borrar</button>
+        <button type="button" id="guardar">Guardar préstamo</button>
+        <button type="button">Comparar préstamos</button>
+    </div>
+    </form>   
 </body>
 </html>
