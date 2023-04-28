@@ -1,3 +1,7 @@
+body{
+    background-color: beige;
+}
+
 .formulario{
     display: flex;
     display: block;
@@ -7,33 +11,65 @@
     font-family: 'Courier New', Courier, monospace;
     background-color: beige;
     padding: 10px;
-    height: 100%;
+    height: auto;
 }
 
 h1{
-    font-size: 40px;
+    font-size: 35px;
     margin: 20px;
     padding: 20px;
-    border: 2px solid black;
-    
+    border: 2px solid black;        
 }
 
 p{
     padding: 5px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 
 .inputs{
     display: flex;
     flex-direction: column;
-    display: block; 
-    padding: 30px;
-    font-size: 20px;
+    display: inline-block; 
+    padding: 10px;
+    margin: 5px;
+    font-size: 15px;
     text-decoration: double;
-    height: 60vh;
+    height: auto;
+    border: 2px solid black;
 }
 
 label{
     justify-content: center;
+}
+
+#tabla{
+    width: 600px;
+    margin: 150px auto;
+}
+
+table{
+    width: 50%;    
+    margin: auto;
+    background-color: white;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.encabezado{
+    font-size: 20px;
+    background-color: cadetblue;
+}
+.fila{
+    font-size: 15px;
+}
+
+th, td{
+    border: solid 1px black;
+    padding: 8px;
+}
+
+
+footer{
+    height: 15vh;
 }

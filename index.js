@@ -36,7 +36,7 @@ function calcular() {
   const tasaPeriodica = interes / 100 / cuotasPorAnio;
   const cuotasTotales = plazo * cuotasPorAnio;
   total = monto * ((tasaPeriodica * Math.pow(1 + tasaPeriodica, cuotasTotales)) / (Math.pow(1 + tasaPeriodica, cuotasTotales) - 1));
-  totalInput.value = "$" + total.toFixed(2);
+  totalInput.value =  total.toFixed(2);
 }
 
 function borrar() {
@@ -57,37 +57,82 @@ const interesInput = document.getElementById("interes");
 const totalInput = document.getElementById("total");
 const calcularButton = document.getElementById("calcular");
 const borrarButton = document.getElementById("borrar");
+const guardarButton = document.getElementById("guardar");
+const contTabla = document.getElementById("Tabla");
 
 calcularButton.addEventListener("click", calcular);
 borrarButton.addEventListener("click", borrar);
 
 
-let prestamos = [];
+let CatPrestamos = [];
 
-function guardarPrestamo() {
-  let fecha = document.getElementById("fecha").value;
-  let monto = document.getElementById("monto").value;
-  let plazo = document.getElementById("plazo").value;
-  let cuotas = document.getElementById("cuotas").value;
-  let interes = document.getElementById("interes").value;
-  let moneda = document.getElementById("moneda").value;
-  let total = document.getElementById("total").value;
+class Prestamo{
+  constructor(monto, plazo, cuotas, interes, total, id){
+    this.monto = parseInt(monto);
+    this.plazo = parseInt(plazo);
+    this.cuotas = cuotas;
+    this.interes = parseInt(interes);
+    this.total = parseInt(total);
+    this.id = id;
+  }
 
-
-  let prestamo = {
-    fecha: fecha,
-    monto: monto,
-    plazo: plazo,
-    cuotas: cuotas,
-    interes: interes,
-    moneda: moneda,
-    total: total,
-  };
-
-  prestamos.push(prestamo);
-  console.log("Préstamo guardado:", prestamo);
+  asignarId(array){
+    this.id = array.lenght;
+  }
 }
 
-let btnGuardar = document.getElementById("guardar");
-btnGuardar.addEventListener("click", guardarPrestamo);
+function guardarPrestamo(CatPrestamos) {
+
+  const prestamo = new Prestamo(montoInput.value, plazoInput.value, cuotasInput.value,
+     interesInput.value, totalInput.value);
+
+  CatPrestamos.push(prestamo);
+  prestamo.asignarId(CatPrestamos)
+
+ 
+}
+
+function guardarEnStorage(CatPrestamos){
+  localStorage.setItem('Prestamos', JSON.stringify(CatPrestamos));
+}
+
+
+
+function crearTabla(arrayElementos, contenedorHtml){
+  const tabla = document.createElement("table");
+  const encabezado = document.createElement("tr");
+  encabezado.className = "encabezado"
+  encabezado.innerHTML = `
+    <th>Monto</th>
+    <th>Cuotas</th>
+    <th>Plazo</th>
+    <th>Interes</th>
+    <th>Total</th>
+  `;
+  tabla.appendChild(encabezado);
+
+  for(const elemento of arrayElementos){
+    const fila = document.createElement("tr");
+    fila.className = "fila" 
+    fila.innerHTML = `
+      
+      <td>${elemento.monto}</td>
+      <td>${elemento.cuotas}</td>
+      <td>${elemento.plazo}</td>
+      <td>${elemento.interes}</td>
+      <td>${elemento.total}</td>
+    `;
+    tabla.appendChild(fila);
+  }
+
+  contenedorHtml.innerHTML = "";
+  contenedorHtml.appendChild(tabla);
+}
+
+guardarButton.onclick = (e) => {
+  e.preventDefault();
+  guardarPrestamo(CatPrestamos);
+  guardarEnStorage(CatPrestamos);
+  crearTabla(CatPrestamos, contTabla);
+};
 
